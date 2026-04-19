@@ -45,9 +45,6 @@ class AirlineScheduler(KnowledgeEngine):
 
     def create_runway_table(self):
         try:
-            # Drop existing tables if they exist
-            cursor.execute('DROP TABLE IF EXISTS runway;')
-
             # Create runway table if not exists
             cursor.execute('''
                 CREATE TABLE IF NOT EXISTS runway (
@@ -58,23 +55,20 @@ class AirlineScheduler(KnowledgeEngine):
                 )
             ''')
 
-            # Insert four runways with fixed length and availability
-            for runway_number in range(1, 5):
-                cursor.execute("INSERT INTO runway (runway_number, length, availability) VALUES (?, ?, ?)",
-                               (runway_number, 2000, 'Available'))
+            # Insert four runways only if table is empty
+            cursor.execute("SELECT COUNT(*) FROM runway")
+            if cursor.fetchone()[0] == 0:
+                for runway_number in range(1, 5):
+                    cursor.execute("INSERT INTO runway (runway_number, length, availability) VALUES (?, ?, ?)",
+                                   (runway_number, 2000, 'Available'))
 
             connection.commit()
-
-            # print("Runway table created successfully with four runways.")
 
         except sqlite3.Error as err:
             print(f"Error: {err}")
 
     def create_plane_table(self):
         try:
-            # Drop existing tables if they exist
-            cursor.execute('DROP TABLE IF EXISTS plane;')
-
             # Create plane table if not exists
             cursor.execute('''
                 CREATE TABLE IF NOT EXISTS plane (
@@ -85,23 +79,20 @@ class AirlineScheduler(KnowledgeEngine):
                 )
             ''')
 
-            # Insert 10 planes with a fuel capacity of 1000
-            for plane_number in range(1, 11):
-                cursor.execute("INSERT INTO plane (plane_number, fuel_capacity, availability) VALUES (?, ?, ?)",
-                               (plane_number, 1000, 'Available'))
+            # Insert 10 planes only if table is empty
+            cursor.execute("SELECT COUNT(*) FROM plane")
+            if cursor.fetchone()[0] == 0:
+                for plane_number in range(1, 11):
+                    cursor.execute("INSERT INTO plane (plane_number, fuel_capacity, availability) VALUES (?, ?, ?)",
+                                   (plane_number, 1000, 'Available'))
 
             connection.commit()
-
-            # print("Plane table created successfully with 10 planes.")
 
         except sqlite3.Error as err:
             print(f"Error: {err}")
 
     def create_flights_table(self):
         try:
-            # Drop existing tables if they exist
-            cursor.execute('DROP TABLE IF EXISTS flights;')
-
             # Create flights table if not exists
             cursor.execute('''
                 CREATE TABLE IF NOT EXISTS flights (
@@ -121,10 +112,7 @@ class AirlineScheduler(KnowledgeEngine):
 
     def create_cargo_table(self):
         try:
-            # Drop existing tables if they exist
-            cursor.execute('DROP TABLE IF EXISTS cargo;')
-
-            # Create flights table if not exists
+            # Create cargo table if not exists
             cursor.execute('''
                 CREATE TABLE IF NOT EXISTS cargo (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -134,7 +122,6 @@ class AirlineScheduler(KnowledgeEngine):
             ''')
 
             connection.commit()
-            # print("Cargo table created successfully.")
 
         except sqlite3.Error as err:
             print(f"Error: {err}")
@@ -171,6 +158,7 @@ class AirlineScheduler(KnowledgeEngine):
                 print(f"Flight ID: {flight[0]}, FROM: PUNE, Destination: {flight[1]}, Time: {flight[2]}, Plane ID: {flight[4]},Runway ID: {flight[5]}")
         else:
             print("No flights found.")
+        self.retract(f)
     @Rule(AS.f <<schedule_flight_cargo())
     def schedule_fc(self,f):
           print("schedule flight with cargo are as follows :")
