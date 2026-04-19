@@ -29,7 +29,7 @@ class assign_runway(Fact):
     pass
 
 
-class GARUDA(KnowledgeEngine):
+class AirlineScheduler(KnowledgeEngine):
     def __init__(self, db_file):
         super().__init__()
         self.db_file = db_file
@@ -235,9 +235,9 @@ class GARUDA(KnowledgeEngine):
         self.declare(assign_runway(flight_id=flight_id))
 
 if __name__ == "__main__":
-    engine = GARUDA(db_file)
+    engine = AirlineScheduler(db_file)
     engine.reset()
-    print("Welcome to GARUDA ~ An expert system for airline scheduling ")
+    print("Welcome to Airline and Cargo Scheduling Expert System")
     print("Welcome to PUNE INTERNATIONAL AIRPORT")
 
     # Declare a flight and cargo based on user input

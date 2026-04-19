@@ -6,7 +6,7 @@ class Flight(Fact):
 class Cargo(Fact):
     pass
 
-class GarudaScheduler(KnowledgeEngine):
+class AirlineScheduler(KnowledgeEngine):
     @Rule(Flight(id=int, source=str, destination=str, time=str))
     def process_flight(self, id, source, destination, time):
         print(f"Received Flight Information: ID={id}, Source={source}, Destination={destination}, Time={time}")
@@ -19,7 +19,7 @@ class GarudaScheduler(KnowledgeEngine):
 
 # Example usage
 if __name__ == "__main__":
-    scheduler = GarudaScheduler()
+    scheduler = AirlineScheduler()
 
     # Reset the engine
     scheduler.reset()

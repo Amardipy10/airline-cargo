@@ -1,0 +1,19 @@
+# Virtual environment
+venv/
+env/
+.venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# SQLite databases (auto-generated on each run)
+*.db
+
+# OS files
+.DS_Store
+Thumbs.db

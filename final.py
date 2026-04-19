@@ -32,7 +32,7 @@ class assign_runway(Fact):
 class fuel(Fact):
     pass
 
-class GARUDA(KnowledgeEngine):
+class AirlineScheduler(KnowledgeEngine):
     def __init__(self, db_file):
         super().__init__()
         self.db_file = db_file
@@ -250,19 +250,17 @@ class GARUDA(KnowledgeEngine):
 
 
 if __name__ == "__main__":
-    engine = GARUDA(db_file)
+    engine = AirlineScheduler(db_file)
     engine.reset()
     
-    print(""" 
-                             ,-.  ,.  ,-.  .  . ,-.   ,.  
-                            /    /  \ |  ) |  | |  \ /  \ 
-                            | -. |--| |-<  |  | |  | |--| 
-                            \  | |  | |  \ |  | |  / |  | 
-                             `-' '  ' '  ' `--` `-'  '  ' 
-          
-                         An expert system for airline scheduling 
-                              PUNE INTERNATIONAL AIRPORT
-        """)
+    print(r"""
+    ============================================================
+    |                                                          |
+    |     Airline and Cargo Scheduling Expert System           |
+    |              PUNE INTERNATIONAL AIRPORT                  |
+    |                                                          |
+    ============================================================
+    """)
     
    
     # Declare a flight and cargo based on user input
@@ -273,7 +271,7 @@ if __name__ == "__main__":
         if user_input == '1':
             id_input = int(input('Enter the id of flight: '))
             destination_input = input("Enter the destination for the flight: ")
-            time_input = int(input('Enter time of flight in 24 hr format: '))
+            time_input = input('Enter time of flight in 24 hr format (e.g. 1430): ')
             distance_input = int(input(f"Enter distance of {destination_input} from pune airport: "))
             engine.declare(fuel(distance_input))
             engine.run()
