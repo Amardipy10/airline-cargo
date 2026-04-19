@@ -372,21 +372,6 @@ pip3 install experta
 python3 final.py
 ```
 
-### 9.3 Expected Output
-
-```
-                             ,-.  ,.  ,-.  .  . ,-.   ,.
-                            /    /  \ |  ) |  | |  \ /  \
-                            | -. |--| |-<  |  | |  | |--|
-                            \  | |  | |  \ |  | |  / |  |
-                             `-' '  ' '  ' `--` `-'  '  '
-
-                         An expert system for airline scheduling
-                              PUNE INTERNATIONAL AIRPORT
-
-Enter |1.Add Flight |2.Add Cargo |3.Schedule Flight and Cargo |4.show available flights |5.Exit:
-```
-
 ### 9.4 Sample Test Run
 
 ```
